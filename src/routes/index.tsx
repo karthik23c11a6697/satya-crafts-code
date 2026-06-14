@@ -438,7 +438,7 @@ const skillIconMap: Record<string, React.ComponentType<{ className?: string }>> 
   "Scikit-learn": SiScikitlearn,
   React: SiReact,
   HTML: SiHtml5,
-  CSS: SiCss3,
+  CSS: SiCss,
   "Tailwind CSS": SiTailwindcss,
   "Node.js": SiNodedotjs,
   "Express.js": SiExpress,
