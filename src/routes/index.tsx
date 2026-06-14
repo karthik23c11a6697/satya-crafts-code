@@ -25,7 +25,7 @@ import {
   SiPostman,
   SiJupyter,
   SiHtml5,
-  SiCss3,
+  SiCss,
 } from "react-icons/si";
 import { FaJava, FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaArrowUp, FaCode, FaBrain, FaUsers, FaRocket, FaLightbulb, FaExternalLinkAlt } from "react-icons/fa";
 import {
