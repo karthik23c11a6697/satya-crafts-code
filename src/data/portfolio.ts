@@ -1,98 +1,67 @@
 export const profile = {
   name: "Satya Karthik",
-  role: "Software Engineer | Data Analyst | Aspiring AI & Full-Stack Developer",
-  tagline: "Transforming Data into Insights and Building Intelligent Solutions.",
+  role: "Aspiring Machine Learning Engineer | Python Developer | Data Analyst",
+  tagline:
+    "Turning data into decisions and building intelligent, automation-first solutions.",
+  summary:
+    "Python and Machine Learning enthusiast with hands-on experience in data analysis, automation, and ML model implementation. Proficient in NumPy, Pandas, and Matplotlib. Seeking an internship to contribute to real-world AI and data science projects.",
   about:
-    "I am a passionate Software Engineer and Data Analyst with strong interests in Artificial Intelligence, Machine Learning, and Full-Stack Development. I enjoy solving real-world problems using data-driven approaches and building scalable software applications. I continuously learn modern technologies and strive to create meaningful digital solutions.",
-  email: "satyakarthik@example.com",
+    "I'm a Computer Science (AI & ML) undergraduate at Anurag College of Engineering with a strong passion for Python, machine learning, and data-driven problem solving. I love building automation scripts that eliminate repetitive work, designing ML models from raw datasets, and turning numbers into clear visual stories. Driven by continuous learning, I'm currently sharpening my skills through real projects, certifications, and academic internships — and I'm actively looking for opportunities where I can contribute to meaningful AI, data, and software engineering work.",
+  location: "Kodad, Telangana, India",
+  phone: "+91 8121080557",
+  email: "karthikdomain97@gmail.com",
   github: "https://github.com/karthik23c11a6697",
   linkedin: "https://www.linkedin.com/in/satya-karthik-555aa930b",
   githubUsername: "karthik23c11a6697",
+  availability: "Open to Internships & Full-Time Opportunities",
 };
 
 export const typewriterRoles = [
-  "Software Engineer",
+  "Machine Learning Engineer",
+  "Python Developer",
   "Data Analyst",
   "AI Enthusiast",
-  "Full-Stack Developer",
 ];
 
 export const highlights = [
   "Problem Solver",
-  "Fast Learner",
-  "Team Collaborator",
+  "Automation-First",
   "Data-Driven Thinker",
   "Continuous Learner",
+  "Team Collaborator",
 ];
 
 export const stats = [
-  { label: "Projects Completed", value: 12 },
-  { label: "GitHub Repositories", value: 20 },
-  { label: "Technologies Learned", value: 25 },
-  { label: "ML Projects", value: 6 },
-];
-
-export const journey = [
-  {
-    year: "2023",
-    title: "Started B.Tech Journey",
-    desc: "Began Computer Science at Lovely Professional University, diving into core CS fundamentals.",
-  },
-  {
-    year: "2024",
-    title: "Discovered Data Science",
-    desc: "Picked up Python, Pandas and NumPy. Built first EDA and visualization projects.",
-  },
-  {
-    year: "2024",
-    title: "Web Development",
-    desc: "Learned React, Tailwind, Node.js and started building full-stack apps.",
-  },
-  {
-    year: "2025",
-    title: "Machine Learning Projects",
-    desc: "Built regression, clustering and NLP projects with Scikit-learn.",
-  },
-  {
-    year: "2025",
-    title: "Internships & Open Source",
-    desc: "Contributing to real-world projects and shipping production-quality code.",
-  },
+  { label: "Projects Built", value: 6 },
+  { label: "GitHub Repositories", value: 15 },
+  { label: "Technologies", value: 12 },
+  { label: "Certifications", value: 1 },
 ];
 
 export const skills = [
   {
     category: "Programming Languages",
-    items: ["Python", "Java", "JavaScript", "SQL"],
+    items: ["Python", "SQL"],
   },
   {
     category: "Data Science & ML",
     items: [
-      "Pandas",
       "NumPy",
-      "Scikit-learn",
-      "Data Cleaning",
+      "Pandas",
+      "Matplotlib",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Data Analysis",
       "Data Visualization",
-      "Predictive Modeling",
-      "Sentiment Analysis",
-      "Customer Segmentation",
     ],
   },
   {
-    category: "Frontend",
-    items: ["HTML", "CSS", "React", "Tailwind CSS"],
+    category: "Core CS Concepts",
+    items: ["Data Structures", "Operating Systems", "Problem Solving"],
   },
   {
-    category: "Backend",
-    items: ["Node.js", "Express.js", "REST APIs"],
-  },
-  {
-    category: "Databases",
-    items: ["MySQL", "MongoDB"],
-  },
-  {
-    category: "Tools",
-    items: ["Git", "GitHub", "VS Code", "Jupyter Notebook", "Postman"],
+    category: "Tools & Platforms",
+    items: ["Git", "GitHub", "Jupyter Notebook", "VS Code"],
   },
 ];
 
@@ -107,31 +76,48 @@ export const projectCategories: ProjectCategory[] = [
 export const projects: {
   title: string;
   description: string;
+  problem: string;
+  solution: string;
+  impact: string;
   tech: string[];
   features: string[];
   github: string;
   demo?: string;
   category: ProjectCategory;
+  period?: string;
 }[] = [
   {
     title: "Automated Data Cleaning & Reporting",
     description:
-      "An automation system that cleans raw datasets, handles missing values, detects inconsistencies, and generates analytical reports automatically.",
+      "A Python automation pipeline that cleans raw datasets, handles missing values, removes duplicates, validates schema, and auto-generates analytical visual reports.",
+    problem:
+      "Analysts waste hours every week on repetitive data preparation and manual reporting before any real insight work begins.",
+    solution:
+      "Built a reusable preprocessing workflow with Pandas & NumPy plus a Matplotlib reporting layer that turns any CSV into a clean, validated dataset with publication-ready charts.",
+    impact:
+      "Cuts manual reporting effort significantly and produces consistent, repeatable data-quality outputs across multiple datasets.",
     tech: ["Python", "Pandas", "NumPy", "Matplotlib"],
     features: [
-      "Automated preprocessing",
-      "Missing value handling",
-      "Report generation",
-      "Data quality analysis",
+      "Automated missing value handling",
+      "Deduplication & schema validation",
+      "Reusable preprocessing pipeline",
+      "Auto-generated visual reports",
     ],
     github:
       "https://github.com/karthik23c11a6697/data-cleaning-reporting-automation",
     category: "Automation",
+    period: "May 2026 – Jun 2026",
   },
   {
     title: "House Price Prediction",
     description:
-      "Machine learning model that predicts house prices using historical data and regression algorithms.",
+      "Regression-based ML model that predicts house prices from historical real-estate features.",
+    problem:
+      "Pricing a home from raw attributes is noisy — buyers and sellers need a data-backed estimate.",
+    solution:
+      "Engineered features, trained and compared regression models with Scikit-learn, and evaluated performance with standard metrics.",
+    impact:
+      "Delivers an interpretable model with measurable accuracy on unseen data and clear feature-importance insights.",
     tech: ["Python", "Scikit-learn", "Pandas", "Matplotlib"],
     features: [
       "Data preprocessing",
@@ -146,7 +132,13 @@ export const projects: {
   {
     title: "Sentiment Analysis",
     description:
-      "NLP system that classifies text sentiment into positive, negative, and neutral categories.",
+      "NLP system that classifies text into positive, negative, and neutral sentiment.",
+    problem:
+      "Brands and creators receive thousands of comments — manually reading them doesn't scale.",
+    solution:
+      "Built a text-preprocessing + classification pipeline that vectorises text and predicts sentiment in real time, with a small visualization dashboard.",
+    impact:
+      "Surfaces sentiment trends from large text corpora in seconds instead of hours.",
     tech: ["Python", "NLP", "Scikit-learn", "Pandas"],
     features: [
       "Text preprocessing",
@@ -161,13 +153,19 @@ export const projects: {
   {
     title: "Customer Segmentation",
     description:
-      "Clustering techniques to segment customers based on behaviour and purchasing patterns.",
+      "Unsupervised clustering to segment customers based on behaviour and purchasing patterns.",
+    problem:
+      "Generic marketing wastes spend — businesses need to know who their customers actually are.",
+    solution:
+      "Applied clustering algorithms to behavioural data, profiled each segment, and visualised cluster differences for non-technical stakeholders.",
+    impact:
+      "Enables targeted campaigns and clearer business insights from raw transactional data.",
     tech: ["Python", "Scikit-learn", "Pandas", "Matplotlib"],
     features: [
       "Customer clustering",
-      "Pattern analysis",
+      "Behavioural pattern analysis",
       "Data visualization",
-      "Business insights",
+      "Actionable business insights",
     ],
     github: "https://github.com/karthik23c11a6697/Customer-Segmentation",
     category: "Machine Learning",
@@ -175,13 +173,19 @@ export const projects: {
   {
     title: "Sales Revenue Analysis",
     description:
-      "Data analysis to identify revenue trends, sales patterns and business opportunities.",
+      "Data analysis project uncovering revenue trends, sales patterns, and growth opportunities.",
+    problem:
+      "Sales teams have rich data but no clear view of which products, regions, or periods are driving revenue.",
+    solution:
+      "Performed end-to-end EDA, built revenue dashboards with Pandas + Seaborn, and translated patterns into business recommendations.",
+    impact:
+      "Highlights top-performing segments and growth windows that inform sales strategy.",
     tech: ["Python", "Pandas", "Matplotlib", "Seaborn"],
     features: [
       "Revenue trend analysis",
-      "Sales dashboards",
-      "Business insights",
+      "Interactive sales dashboards",
       "Visual reporting",
+      "Business insights",
     ],
     github: "https://github.com/karthik23c11a6697/Sales-Revenue-Analysis",
     category: "Data Analysis",
@@ -189,12 +193,18 @@ export const projects: {
   {
     title: "Exploratory Data Analysis",
     description:
-      "Comprehensive EDA to uncover patterns, correlations, and hidden insights within datasets.",
+      "Comprehensive EDA workflow that uncovers correlations, outliers, and hidden insights in datasets.",
+    problem:
+      "Raw datasets hide their structure — without proper EDA, modelling decisions are guesswork.",
+    solution:
+      "Built a templated EDA notebook covering statistical summaries, correlation matrices, and rich visual exploration.",
+    impact:
+      "Speeds up the discovery phase of any data project and produces shareable insight reports.",
     tech: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
     features: [
       "Statistical analysis",
       "Correlation analysis",
-      "Data visualization",
+      "Outlier detection",
       "Insight generation",
     ],
     github: "https://github.com/karthik23c11a6697/HorizonTechX_EDA",
@@ -202,30 +212,95 @@ export const projects: {
   },
 ];
 
-export const education = [
+export const experience = [
   {
-    degree: "B.Tech in Computer Science & Engineering",
-    institution: "Lovely Professional University",
-    year: "2023 — 2027",
-    coursework: [
-      "Data Structures & Algorithms",
-      "Database Management Systems",
-      "Operating Systems",
-      "Machine Learning",
-      "Web Development",
-    ],
-    achievements: [
-      "Active GitHub contributor",
-      "Completed multiple internship projects",
-      "Built 10+ data & ML projects",
+    role: "Academic Project Intern",
+    company: "Anurag College of Engineering",
+    period: "Aug 2025 – Present",
+    location: "Hyderabad, India",
+    bullets: [
+      "Built and analyzed academic projects using Python and core machine learning concepts.",
+      "Applied data analysis and problem-solving techniques to derive meaningful insights from real datasets.",
+      "Collaborated with peers to design solutions and presented project outcomes to faculty.",
     ],
   },
   {
-    degree: "Intermediate (MPC)",
-    institution: "Sri Chaitanya Junior College",
-    year: "2021 — 2023",
+    role: "Marketing Campaign Simulation Lead",
+    company: "College Project",
+    period: "Aug 2025 – Nov 2025",
+    location: "Anurag College of Engineering",
+    bullets: [
+      "Designed an end-to-end mock marketing plan covering budgeting, promotion, and distribution for a new product launch.",
+      "Translated business requirements into a structured strategy document and pitch presentation.",
+    ],
+  },
+];
+
+export const education = [
+  {
+    degree: "B.Tech – Computer Science (AI & ML)",
+    institution: "Anurag College of Engineering",
+    year: "2023 – 2027",
+    score: "Pursuing",
+    coursework: [
+      "Data Structures",
+      "Operating Systems",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Python Programming",
+      "DBMS",
+    ],
+    achievements: [
+      "Active GitHub contributor with 6+ published projects",
+      "Hands-on ML & automation projects beyond curriculum",
+    ],
+  },
+  {
+    degree: "Senior Secondary (Class XII)",
+    institution: "Sri Chaitanya Techno HS, Kodad, Suryapet",
+    year: "2023",
+    score: "CGPA: 8.00 / 10",
     coursework: ["Mathematics", "Physics", "Chemistry"],
-    achievements: ["Strong foundation in analytical reasoning"],
+    achievements: ["Strong foundation in analytical and quantitative reasoning"],
+  },
+  {
+    degree: "Secondary (Class X)",
+    institution: "Sri Chaitanya Techno HS, Kodad, Suryapet",
+    year: "2020",
+    score: "CGPA: 10.00 / 10",
+    coursework: [],
+    achievements: ["Perfect 10 CGPA"],
+  },
+];
+
+export const certifications = [
+  {
+    title: "Python for Data Science & Machine Learning",
+    issuer: "Online / Virtual",
+    period: "Jun 2025 – Present",
+    description:
+      "Mastered Python fundamentals, data handling and applied ML using NumPy, Pandas and Matplotlib. Implemented ML models and solved practice problems to strengthen applied programming skills.",
+  },
+];
+
+export const achievements = [
+  {
+    title: "Winner – Business Quiz Contest",
+    year: "2023",
+    description:
+      "Awarded first place in an inter-college business quiz contest, demonstrating quick analytical thinking and broad awareness.",
+  },
+  {
+    title: "6+ Open-Source Projects on GitHub",
+    year: "Ongoing",
+    description:
+      "Consistent contributor with public ML, EDA, and automation repositories used as learning references.",
+  },
+  {
+    title: "Academic Project Internship",
+    year: "2025",
+    description:
+      "Selected for an academic internship to build and present applied ML projects to faculty reviewers.",
   },
 ];
 
@@ -233,8 +308,10 @@ export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "GitHub", href: "#github" },
   { label: "Education", href: "#education" },
+  { label: "Achievements", href: "#achievements" },
+  { label: "Resume", href: "#resume" },
   { label: "Contact", href: "#contact" },
 ];

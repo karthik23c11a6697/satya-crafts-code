@@ -11,23 +11,33 @@ import {
 } from "framer-motion";
 import {
   SiPython,
-  SiJavascript,
-  SiReact,
   SiMysql,
-  SiTailwindcss,
-  SiNodedotjs,
   SiPandas,
   SiNumpy,
   SiScikitlearn,
-  SiMongodb,
-  SiExpress,
   SiGit,
-  SiPostman,
   SiJupyter,
-  SiHtml5,
-  SiCss,
 } from "react-icons/si";
-import { FaJava, FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaArrowUp, FaCode, FaBrain, FaUsers, FaRocket, FaLightbulb, FaExternalLinkAlt } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+  FaDownload,
+  FaArrowUp,
+  FaCode,
+  FaBrain,
+  FaUsers,
+  FaRocket,
+  FaLightbulb,
+  FaExternalLinkAlt,
+  FaBriefcase,
+  FaGraduationCap,
+  FaTrophy,
+  FaCertificate,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaCheckCircle,
+} from "react-icons/fa";
 import {
   profile,
   highlights,
@@ -37,34 +47,96 @@ import {
   education,
   navLinks,
   typewriterRoles,
-  journey,
+  experience,
+  certifications,
+  achievements,
   projectCategories,
   type ProjectCategory,
 } from "@/data/portfolio";
+import resumeAsset from "@/assets/resume.asset.json";
+
+const RESUME_URL = resumeAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Satya Karthik — Software Engineer & Data Analyst" },
+      {
+        title:
+          "Satya Karthik — Aspiring Machine Learning Engineer & Data Analyst",
+      },
       {
         name: "description",
         content:
-          "Portfolio of Satya Karthik — Software Engineer, Data Analyst and aspiring AI / Full-Stack developer. Projects in ML, data analysis and web development.",
+          "Portfolio of Satya Karthik — Python developer, ML enthusiast and Data Analyst. Projects in machine learning, data analysis, automation and EDA. Open to internships and full-time roles.",
       },
-      { property: "og:title", content: "Satya Karthik — Software Engineer & Data Analyst" },
+      {
+        name: "keywords",
+        content:
+          "Satya Karthik, Machine Learning Engineer, Data Analyst, Python Developer, AI Intern, ML Portfolio, Data Science Portfolio",
+      },
+      {
+        property: "og:title",
+        content:
+          "Satya Karthik — Aspiring Machine Learning Engineer & Data Analyst",
+      },
       {
         property: "og:description",
         content:
-          "Transforming data into insights and building intelligent solutions.",
+          "Turning data into decisions and building intelligent, automation-first solutions.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Satya Karthik — ML Engineer & Data Analyst",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Python developer, ML enthusiast & Data Analyst. Open to internships and full-time opportunities.",
+      },
     ],
     links: [
       { rel: "canonical", href: "/" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: profile.name,
+          jobTitle: "Aspiring Machine Learning Engineer & Data Analyst",
+          description: profile.summary,
+          email: `mailto:${profile.email}`,
+          telephone: profile.phone,
+          url: "/",
+          sameAs: [profile.github, profile.linkedin],
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Kodad",
+            addressRegion: "Telangana",
+            addressCountry: "IN",
+          },
+          alumniOf: {
+            "@type": "CollegeOrUniversity",
+            name: "Anurag College of Engineering",
+          },
+          knowsAbout: [
+            "Python",
+            "Machine Learning",
+            "Data Analysis",
+            "Pandas",
+            "NumPy",
+            "Scikit-learn",
+            "Artificial Intelligence",
+          ],
+        }),
       },
     ],
   }),
@@ -141,9 +213,11 @@ function Navbar() {
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] text-background">
             SK
           </span>
-          <span className="hidden sm:inline">Satya<span className="text-gradient">.</span></span>
+          <span className="hidden sm:inline">
+            Satya<span className="text-gradient">.</span>
+          </span>
         </a>
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => {
             const id = l.href.slice(1);
             const isActive = active === id;
@@ -169,13 +243,13 @@ function Navbar() {
         </ul>
         <a
           href="#contact"
-          className="hidden rounded-lg bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)] px-4 py-2 text-sm font-semibold text-background transition-transform hover:scale-105 md:inline-flex"
+          className="hidden rounded-lg bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)] px-4 py-2 text-sm font-semibold text-background transition-transform hover:scale-105 lg:inline-flex"
         >
           Hire me
         </a>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden rounded-lg p-2 text-foreground"
+          className="lg:hidden rounded-lg p-2 text-foreground"
           aria-label="Toggle menu"
         >
           <div className="space-y-1.5">
@@ -191,7 +265,7 @@ function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="glass-strong mx-auto mt-2 max-w-6xl rounded-2xl p-3 md:hidden"
+            className="glass-strong mx-auto mt-2 max-w-6xl rounded-2xl p-3 lg:hidden"
           >
             {navLinks.map((l) => (
               <a
@@ -269,14 +343,13 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
 /* ───────────────────────── Hero ───────────────────────── */
 const techIcons = [
   { Icon: SiPython, name: "Python", color: "#3776AB" },
-  { Icon: FaJava, name: "Java", color: "#ED8B00" },
-  { Icon: SiReact, name: "React", color: "#61DAFB" },
+  { Icon: SiPandas, name: "Pandas", color: "#150458" },
+  { Icon: SiNumpy, name: "NumPy", color: "#4DABCF" },
+  { Icon: SiScikitlearn, name: "Scikit-learn", color: "#F7931E" },
   { Icon: SiMysql, name: "SQL", color: "#4479A1" },
-  { Icon: FaGithub, name: "GitHub", color: "#ffffff" },
   { Icon: FaBrain, name: "ML", color: "#22d3ee" },
 ];
 
-/* ───────────────────────── Typewriter ───────────────────────── */
 function Typewriter({ words }: { words: string[] }) {
   const [wordIdx, setWordIdx] = useState(0);
   const [text, setText] = useState("");
@@ -324,19 +397,17 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--cyan)] opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--cyan)]" />
             </span>
-            Available for internships & full-time roles
+            {profile.availability}
           </motion.div>
           <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
             Hi, I'm <br />
-            <span className="text-gradient">Satya Karthik</span>
+            <span className="text-gradient">{profile.name}</span>
           </h1>
           <div className="mt-5 min-h-[2em] text-lg font-medium sm:text-xl md:text-2xl">
-            I'm a <Typewriter words={typewriterRoles} />
+            I'm an <Typewriter words={typewriterRoles} />
           </div>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            I build intelligent solutions using data, machine learning, and modern software
-            technologies. Passionate about solving real-world problems through code and continuous
-            learning.
+            {profile.summary}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -346,7 +417,8 @@ function Hero() {
               <FaRocket /> View Projects
             </a>
             <a
-              href="/resume.pdf"
+              href={RESUME_URL}
+              download
               className="glass inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-white/10"
             >
               <FaDownload /> Resume
@@ -400,8 +472,7 @@ function Hero() {
                 padding: "2px",
                 WebkitMask:
                   "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
-                mask:
-                  "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+                mask: "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
               }}
             />
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--electric)]/40 to-[var(--cyan)]/30 blur-3xl" />
@@ -496,39 +567,6 @@ function About() {
             </div>
           </Reveal>
         </div>
-
-        {/* Learning journey timeline */}
-        <Reveal className="mt-16">
-          <h3 className="mb-8 text-center font-display text-2xl font-bold">
-            My <span className="text-gradient">Learning Journey</span>
-          </h3>
-          <div className="relative">
-            <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[var(--electric)]/40 to-transparent md:block" />
-            <div className="space-y-4 md:space-y-0">
-              {journey.map((j, i) => (
-                <Reveal key={j.title} delay={i * 0.08}>
-                  <div
-                    className={`relative md:grid md:grid-cols-2 md:gap-8 ${
-                      i % 2 === 0 ? "" : "md:[&>*:first-child]:order-2"
-                    }`}
-                  >
-                    <div className={`md:py-6 ${i % 2 === 0 ? "md:text-right" : ""}`}>
-                      <div className="glass rounded-2xl p-5 transition-transform hover:-translate-y-1">
-                        <span className="font-display text-xs font-bold tracking-wider text-[var(--cyan)]">
-                          {j.year}
-                        </span>
-                        <h4 className="mt-1 text-base font-bold">{j.title}</h4>
-                        <p className="mt-1 text-xs text-muted-foreground">{j.desc}</p>
-                      </div>
-                    </div>
-                    <div className="hidden md:block" />
-                    <div className="absolute left-1/2 top-8 hidden h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] glow md:block" />
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -537,23 +575,13 @@ function About() {
 /* ───────────────────────── Skills ───────────────────────── */
 const skillIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Python: SiPython,
-  Java: FaJava,
-  JavaScript: SiJavascript,
   SQL: SiMysql,
   Pandas: SiPandas,
   NumPy: SiNumpy,
   "Scikit-learn": SiScikitlearn,
-  React: SiReact,
-  HTML: SiHtml5,
-  CSS: SiCss,
-  "Tailwind CSS": SiTailwindcss,
-  "Node.js": SiNodedotjs,
-  "Express.js": SiExpress,
-  MySQL: SiMysql,
-  MongoDB: SiMongodb,
+  Matplotlib: FaCode,
   Git: SiGit,
   GitHub: FaGithub,
-  Postman: SiPostman,
   "Jupyter Notebook": SiJupyter,
 };
 
@@ -582,6 +610,49 @@ function Skills() {
                       </span>
                     );
                   })}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Experience ───────────────────────── */
+function Experience() {
+  return (
+    <section id="experience" className="relative py-24 px-4">
+      <div className="mx-auto max-w-4xl">
+        <SectionTitle eyebrow="Where I've worked" title="Experience" />
+        <div className="relative space-y-6">
+          <div className="absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-[var(--electric)] via-[var(--cyan)] to-transparent" />
+          {experience.map((e, i) => (
+            <Reveal key={e.role + e.company} delay={i * 0.1}>
+              <div className="relative pl-14">
+                <div className="absolute left-0 top-2 grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] text-background glow">
+                  <FaBriefcase />
+                </div>
+                <div className="glass-strong rounded-2xl p-6 transition-transform hover:-translate-y-1">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-lg font-bold">{e.role}</h3>
+                      <p className="text-sm text-[var(--cyan)]">{e.company}</p>
+                    </div>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold">
+                      {e.period}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">{e.location}</p>
+                  <ul className="mt-4 space-y-2">
+                    {e.bullets.map((b) => (
+                      <li key={b} className="flex gap-3 text-sm text-muted-foreground">
+                        <FaCheckCircle className="mt-1 shrink-0 text-[var(--cyan)]" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </Reveal>
@@ -661,7 +732,23 @@ function Projects() {
                   <h3 className="text-lg font-bold transition-colors group-hover:text-[var(--cyan)]">
                     {p.title}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
+
+                  <div className="mt-4 space-y-3 text-xs">
+                    <div>
+                      <p className="font-semibold text-[var(--cyan)]">Problem</p>
+                      <p className="mt-0.5 text-muted-foreground">{p.problem}</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[var(--cyan)]">Solution</p>
+                      <p className="mt-0.5 text-muted-foreground">{p.solution}</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[var(--cyan)]">Impact</p>
+                      <p className="mt-0.5 text-muted-foreground">{p.impact}</p>
+                    </div>
+                  </div>
+
                   <ul className="mt-4 space-y-1.5">
                     {p.features.slice(0, 3).map((f) => (
                       <li
@@ -736,13 +823,11 @@ function GitHubShowcase() {
               </div>
               <div className="space-y-4">
                 <div className="glass rounded-2xl p-5">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                    GitHub
-                  </p>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground">GitHub</p>
                   <p className="mt-1 font-display text-xl font-bold">@{username}</p>
                   <p className="mt-3 text-sm text-muted-foreground">
-                    Building open-source projects in data science, machine learning, and
-                    full-stack development.
+                    Public repositories spanning machine learning, exploratory data analysis,
+                    and Python automation.
                   </p>
                   <a
                     href={profile.github}
@@ -774,60 +859,254 @@ function Education() {
     <section id="education" className="relative py-24 px-4">
       <div className="mx-auto max-w-4xl">
         <SectionTitle eyebrow="Background" title="Education" />
-        <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--electric)] via-[var(--cyan)] to-transparent md:left-1/2" />
+        <div className="relative space-y-6">
+          <div className="absolute left-5 top-2 bottom-2 w-px bg-gradient-to-b from-[var(--electric)] via-[var(--cyan)] to-transparent" />
           {education.map((e, i) => (
             <Reveal key={e.degree} delay={i * 0.1}>
-              <div
-                className={`relative mb-10 flex flex-col gap-4 md:flex-row ${
-                  i % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                <div className="absolute left-4 top-3 z-10 grid h-3 w-3 -translate-x-1/2 place-items-center md:left-1/2">
-                  <span className="h-3 w-3 rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] glow" />
+              <div className="relative pl-14">
+                <div className="absolute left-0 top-2 grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] text-background glow">
+                  <FaGraduationCap />
                 </div>
-                <div className="md:w-1/2" />
-                <div className="ml-10 md:ml-0 md:w-1/2 md:px-8">
-                  <div className="glass-strong rounded-2xl p-6">
-                    <p className="text-xs font-semibold text-[var(--cyan)]">{e.year}</p>
-                    <h3 className="mt-1 text-lg font-bold">{e.degree}</h3>
-                    <p className="text-sm text-muted-foreground">{e.institution}</p>
-                    {e.coursework.length > 0 && (
-                      <div className="mt-4">
-                        <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                          Coursework
-                        </p>
-                        <div className="mt-2 flex flex-wrap gap-1.5">
-                          {e.coursework.map((c) => (
-                            <span
-                              key={c}
-                              className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px]"
-                            >
-                              {c}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {e.achievements.length > 0 && (
-                      <ul className="mt-4 space-y-1">
-                        {e.achievements.map((a) => (
-                          <li
-                            key={a}
-                            className="flex items-start gap-2 text-xs text-muted-foreground"
-                          >
-                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--cyan)]" />
-                            {a}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                <div className="glass-strong rounded-2xl p-6 transition-transform hover:-translate-y-1">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-lg font-bold">{e.degree}</h3>
+                      <p className="text-sm text-[var(--cyan)]">{e.institution}</p>
+                    </div>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold">
+                      {e.year}
+                    </span>
                   </div>
+                  {e.score && (
+                    <p className="mt-2 text-sm font-semibold text-gradient">{e.score}</p>
+                  )}
+                  {e.coursework.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                        Relevant Coursework
+                      </p>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {e.coursework.map((c) => (
+                          <span
+                            key={c}
+                            className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px]"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {e.achievements.length > 0 && (
+                    <ul className="mt-4 space-y-1">
+                      {e.achievements.map((a) => (
+                        <li
+                          key={a}
+                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                        >
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--cyan)]" />
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Achievements & Certifications ───────────────────────── */
+function Achievements() {
+  return (
+    <section id="achievements" className="relative py-24 px-4">
+      <div className="mx-auto max-w-6xl">
+        <SectionTitle
+          eyebrow="Wins & credentials"
+          title="Achievements & Certifications"
+        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Reveal>
+            <div className="glass-strong h-full rounded-2xl p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] text-background">
+                  <FaCertificate />
+                </span>
+                <h3 className="text-lg font-bold">Certifications</h3>
+              </div>
+              <div className="space-y-4">
+                {certifications.map((c) => (
+                  <div
+                    key={c.title}
+                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-[var(--cyan)]/40"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <h4 className="font-semibold">{c.title}</h4>
+                      <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold text-[var(--cyan)]">
+                        {c.period}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">{c.issuer}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="glass-strong h-full rounded-2xl p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] text-background">
+                  <FaTrophy />
+                </span>
+                <h3 className="text-lg font-bold">Achievements</h3>
+              </div>
+              <div className="space-y-4">
+                {achievements.map((a) => (
+                  <div
+                    key={a.title}
+                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-[var(--cyan)]/40"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-2">
+                      <h4 className="font-semibold">{a.title}</h4>
+                      <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold text-[var(--cyan)]">
+                        {a.year}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">{a.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── Resume ───────────────────────── */
+function Resume() {
+  const keySkills = ["Python", "Pandas", "NumPy", "Matplotlib", "Scikit-learn", "SQL", "ML"];
+  const highlightsList = [
+    "B.Tech in CSE (AI & ML) — 2023-27",
+    "Academic Project Intern (Aug 2025 – Present)",
+    "6+ hands-on ML, EDA & automation projects",
+    "Class X CGPA 10/10, Class XII CGPA 8/10",
+    "Winner – Business Quiz Contest, 2023",
+  ];
+  return (
+    <section id="resume" className="relative py-24 px-4">
+      <div className="mx-auto max-w-6xl">
+        <SectionTitle eyebrow="One-page snapshot" title="Resume" />
+        <Reveal>
+          <div className="glass-strong overflow-hidden rounded-3xl p-6 sm:p-10">
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Preview card */}
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[var(--electric)]/40 to-[var(--cyan)]/30 blur-3xl" />
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white to-slate-100 p-6 text-slate-900 shadow-2xl">
+                  <div className="border-b-2 border-slate-900 pb-3">
+                    <p className="font-display text-2xl font-bold tracking-tight">
+                      {profile.name.toUpperCase()}
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-slate-600">
+                      Aspiring Machine Learning Engineer
+                    </p>
+                    <p className="mt-1 text-[10px] text-slate-500">
+                      {profile.location} · {profile.phone} · {profile.email}
+                    </p>
+                  </div>
+                  <div className="mt-3 space-y-2 text-[10px] leading-relaxed text-slate-700">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-slate-900">
+                      Summary
+                    </p>
+                    <p>{profile.summary}</p>
+                    <p className="pt-1 text-[10px] font-bold uppercase tracking-wider text-slate-900">
+                      Skills
+                    </p>
+                    <p>Python · SQL · NumPy · Pandas · Matplotlib · ML · AI · Data Analysis</p>
+                    <p className="pt-1 text-[10px] font-bold uppercase tracking-wider text-slate-900">
+                      Experience
+                    </p>
+                    <p>
+                      <strong>Academic Project Intern</strong> · Anurag College of Engineering ·
+                      Aug 2025 – Present
+                    </p>
+                    <p className="pt-1 text-[10px] font-bold uppercase tracking-wider text-slate-900">
+                      Education
+                    </p>
+                    <p>B.Tech CSE (AI & ML), Anurag College of Engineering — 2023-2027</p>
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent" />
+                </div>
+              </div>
+
+              {/* Details */}
+              <div className="flex flex-col">
+                <h3 className="font-display text-2xl font-bold">
+                  Grab the <span className="text-gradient">full PDF</span>
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  A one-page resume with my background, projects, skills and contact details —
+                  perfect for recruiter screens.
+                </p>
+
+                <div className="mt-6">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[var(--cyan)]">
+                    Quick highlights
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    {highlightsList.map((h) => (
+                      <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <FaCheckCircle className="mt-1 shrink-0 text-[var(--cyan)]" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[var(--cyan)]">
+                    Key skills snapshot
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {keySkills.map((s) => (
+                      <span
+                        key={s}
+                        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href={RESUME_URL}
+                    download
+                    className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)] px-5 py-3 text-sm font-semibold text-background transition-transform hover:scale-105 glow"
+                  >
+                    <FaDownload /> Download Resume
+                  </a>
+                  <a
+                    href={RESUME_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="glass inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-white/10"
+                  >
+                    <FaExternalLinkAlt className="text-xs" /> Open in new tab
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -839,11 +1118,11 @@ function Contact() {
   return (
     <section id="contact" className="relative py-24 px-4">
       <div className="mx-auto max-w-5xl">
-        <SectionTitle eyebrow="Get in touch" title="Let's Build Something Amazing" />
+        <SectionTitle eyebrow="Let's Connect" title="Let's Build Something Amazing" />
         <Reveal>
           <p className="-mt-6 mb-10 text-center text-sm text-muted-foreground sm:text-base">
-            I'm actively looking for internships and full-time opportunities in Software
-            Engineering, Data Analytics, and AI/ML.
+            Available for internships and software engineering opportunities in
+            Machine Learning, Data Analytics, and Python development.
           </p>
         </Reveal>
         <div className="grid gap-6 md:grid-cols-5">
@@ -851,7 +1130,7 @@ function Contact() {
             <div className="glass-strong h-full space-y-3 rounded-2xl p-6">
               <h3 className="font-display text-lg font-bold">Connect with me</h3>
               <p className="text-sm text-muted-foreground">
-                Prefer a direct line? Reach out on any of these platforms.
+                Prefer a direct line? Reach out on any of these channels.
               </p>
               <div className="mt-4 space-y-2">
                 <a
@@ -864,6 +1143,18 @@ function Contact() {
                   <div className="min-w-0">
                     <p className="text-xs text-muted-foreground">Email</p>
                     <p className="truncate text-sm font-medium">{profile.email}</p>
+                  </div>
+                </a>
+                <a
+                  href={`tel:${profile.phone.replace(/\s/g, "")}`}
+                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-all hover:border-[var(--cyan)]/40 hover:bg-white/[0.06]"
+                >
+                  <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--electric)]/20 text-[var(--cyan)]">
+                    <FaPhone />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs text-muted-foreground">Phone</p>
+                    <p className="truncate text-sm font-medium">{profile.phone}</p>
                   </div>
                 </a>
                 <a
@@ -894,18 +1185,15 @@ function Contact() {
                     <p className="truncate text-sm font-medium">@{profile.githubUsername}</p>
                   </div>
                 </a>
-                <a
-                  href="/resume.pdf"
-                  className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-all hover:border-[var(--cyan)]/40 hover:bg-white/[0.06]"
-                >
+                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3">
                   <span className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--electric)]/20 text-[var(--cyan)]">
-                    <FaDownload />
+                    <FaMapMarkerAlt />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-xs text-muted-foreground">Resume</p>
-                    <p className="truncate text-sm font-medium">Download PDF</p>
+                    <p className="text-xs text-muted-foreground">Location</p>
+                    <p className="truncate text-sm font-medium">{profile.location}</p>
                   </div>
-                </a>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -917,7 +1205,7 @@ function Contact() {
                 const fd = new FormData(form);
                 const subject = encodeURIComponent(`Portfolio enquiry from ${fd.get("name")}`);
                 const body = encodeURIComponent(
-                  `${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`
+                  `${fd.get("message")}\n\n— ${fd.get("name")} (${fd.get("email")})`,
                 );
                 window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
                 setStatus("sent");
@@ -988,11 +1276,19 @@ function Footer() {
   return (
     <footer className="border-t border-white/10 px-4 py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 text-xs text-muted-foreground sm:flex-row">
-        <p>© {new Date().getFullYear()} {profile.name}. Built with React, TanStack & Framer Motion.</p>
+        <p>
+          © {new Date().getFullYear()} {profile.name}. Built with React, TanStack & Framer Motion.
+        </p>
         <div className="flex gap-4">
-          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-[var(--cyan)]">GitHub</a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-[var(--cyan)]">LinkedIn</a>
-          <a href={`mailto:${profile.email}`} className="hover:text-[var(--cyan)]">Email</a>
+          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-[var(--cyan)]">
+            GitHub
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-[var(--cyan)]">
+            LinkedIn
+          </a>
+          <a href={`mailto:${profile.email}`} className="hover:text-[var(--cyan)]">
+            Email
+          </a>
         </div>
       </div>
     </footer>
@@ -1046,8 +1342,7 @@ function CursorGlow() {
       <div
         className="h-full w-full rounded-full opacity-30"
         style={{
-          background:
-            "radial-gradient(circle at center, var(--electric), transparent 60%)",
+          background: "radial-gradient(circle at center, var(--electric), transparent 60%)",
           filter: "blur(60px)",
         }}
       />
@@ -1108,9 +1403,12 @@ function PortfolioPage() {
         <Hero />
         <About />
         <Skills />
+        <Experience />
         <Projects />
         <GitHubShowcase />
         <Education />
+        <Achievements />
+        <Resume />
         <Contact />
       </main>
       <Footer />
