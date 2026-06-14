@@ -1025,13 +1025,80 @@ function ScrollTop() {
   );
 }
 
+/* ───────────────────────── Cursor glow ───────────────────────── */
+function CursorGlow() {
+  const x = useMotionValue(-200);
+  const y = useMotionValue(-200);
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [x, y]);
+  return (
+    <motion.div
+      style={{ x, y }}
+      className="pointer-events-none fixed left-0 top-0 z-[55] hidden h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full md:block"
+      aria-hidden
+    >
+      <div
+        className="h-full w-full rounded-full opacity-30"
+        style={{
+          background:
+            "radial-gradient(circle at center, var(--electric), transparent 60%)",
+          filter: "blur(60px)",
+        }}
+      />
+    </motion.div>
+  );
+}
+
+/* ───────────────────────── Loading screen ───────────────────────── */
+function LoadingScreen({ onDone }: { onDone: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 1400);
+    return () => clearTimeout(t);
+  }, [onDone]);
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 z-[100] grid place-items-center bg-background"
+    >
+      <div className="relative">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          className="absolute -inset-4 rounded-2xl border-2 border-transparent border-t-[var(--electric)] border-r-[var(--cyan)]"
+        />
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] font-display text-3xl font-bold text-background glow"
+        >
+          SK
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ───────────────────────── Page ───────────────────────── */
 function PortfolioPage() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <AnimatePresence>
+        {loading && <LoadingScreen onDone={() => setLoading(false)} />}
+      </AnimatePresence>
+      <CursorGlow />
       <motion.div
         style={{ scaleX }}
         className="fixed inset-x-0 top-0 z-[60] h-1 origin-left bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)]"
