@@ -36,6 +36,10 @@ import {
   projects,
   education,
   navLinks,
+  typewriterRoles,
+  journey,
+  projectCategories,
+  type ProjectCategory,
 } from "@/data/portfolio";
 
 export const Route = createFileRoute("/")({
@@ -272,6 +276,38 @@ const techIcons = [
   { Icon: FaBrain, name: "ML", color: "#22d3ee" },
 ];
 
+/* ───────────────────────── Typewriter ───────────────────────── */
+function Typewriter({ words }: { words: string[] }) {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  useEffect(() => {
+    const current = words[wordIdx];
+    const speed = deleting ? 45 : 95;
+    const t = setTimeout(() => {
+      if (!deleting) {
+        const next = current.slice(0, text.length + 1);
+        setText(next);
+        if (next === current) setTimeout(() => setDeleting(true), 1400);
+      } else {
+        const next = current.slice(0, text.length - 1);
+        setText(next);
+        if (next === "") {
+          setDeleting(false);
+          setWordIdx((i) => (i + 1) % words.length);
+        }
+      }
+    }, speed);
+    return () => clearTimeout(t);
+  }, [text, deleting, wordIdx, words]);
+  return (
+    <span className="text-gradient">
+      {text}
+      <span className="ml-0.5 inline-block h-[1em] w-[2px] -translate-y-[2px] bg-[var(--cyan)] align-middle animate-pulse" />
+    </span>
+  );
+}
+
 function Hero() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-32 pb-20">
@@ -290,14 +326,14 @@ function Hero() {
             </span>
             Available for internships & full-time roles
           </motion.div>
-          <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
             Hi, I'm <br />
             <span className="text-gradient">Satya Karthik</span>
           </h1>
-          <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-            Software Engineer · Data Analyst · AI Enthusiast
-          </p>
-          <p className="mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
+          <div className="mt-5 min-h-[2em] text-lg font-medium sm:text-xl md:text-2xl">
+            I'm a <Typewriter words={typewriterRoles} />
+          </div>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             I build intelligent solutions using data, machine learning, and modern software
             technologies. Passionate about solving real-world problems through code and continuous
             learning.
@@ -322,41 +358,79 @@ function Hero() {
               <FaEnvelope /> Contact
             </a>
           </div>
+          <div className="mt-6 flex gap-3">
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="GitHub"
+            >
+              <FaGithub />
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="Email"
+            >
+              <FaEnvelope />
+            </a>
+          </div>
         </Reveal>
 
         <Reveal delay={0.2} className="relative">
           <div className="relative mx-auto aspect-square max-w-md">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--electric)]/30 to-[var(--cyan)]/20 blur-3xl" />
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-6 rounded-full border border-dashed border-white/15"
+              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 0deg, var(--electric), var(--cyan), var(--electric), transparent 70%, var(--electric))",
+                filter: "blur(2px)",
+                padding: "2px",
+                WebkitMask:
+                  "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+                mask:
+                  "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+              }}
             />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--electric)]/40 to-[var(--cyan)]/30 blur-3xl" />
             <motion.div
               animate={{ rotate: -360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-16 rounded-full border border-dashed border-white/10"
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-8 rounded-full border border-dashed border-white/15"
             />
-            <div className="absolute inset-1/4 grid place-items-center rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] p-1">
-              <div className="grid h-full w-full place-items-center rounded-full bg-background font-display text-5xl font-bold text-gradient">
+            <div className="absolute inset-[18%] grid place-items-center rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] p-[3px] glow">
+              <div className="grid h-full w-full place-items-center rounded-full bg-background font-display text-6xl font-bold text-gradient">
                 SK
               </div>
             </div>
             {techIcons.map((t, i) => {
-              const angle = (i / techIcons.length) * Math.PI * 2;
-              const r = 46;
+              const angle = (i / techIcons.length) * Math.PI * 2 - Math.PI / 2;
+              const r = 48;
               const x = Math.cos(angle) * r;
               const y = Math.sin(angle) * r;
               return (
                 <motion.div
                   key={t.name}
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+                  animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
                   transition={{
                     opacity: { delay: 0.6 + i * 0.1 },
                     scale: { delay: 0.6 + i * 0.1, type: "spring" },
                     y: { duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" },
                   }}
+                  whileHover={{ scale: 1.15 }}
                   className="glass-strong absolute grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl text-2xl"
                   style={{
                     left: `${50 + x}%`,
@@ -422,6 +496,39 @@ function About() {
             </div>
           </Reveal>
         </div>
+
+        {/* Learning journey timeline */}
+        <Reveal className="mt-16">
+          <h3 className="mb-8 text-center font-display text-2xl font-bold">
+            My <span className="text-gradient">Learning Journey</span>
+          </h3>
+          <div className="relative">
+            <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[var(--electric)]/40 to-transparent md:block" />
+            <div className="space-y-4 md:space-y-0">
+              {journey.map((j, i) => (
+                <Reveal key={j.title} delay={i * 0.08}>
+                  <div
+                    className={`relative md:grid md:grid-cols-2 md:gap-8 ${
+                      i % 2 === 0 ? "" : "md:[&>*:first-child]:order-2"
+                    }`}
+                  >
+                    <div className={`md:py-6 ${i % 2 === 0 ? "md:text-right" : ""}`}>
+                      <div className="glass rounded-2xl p-5 transition-transform hover:-translate-y-1">
+                        <span className="font-display text-xs font-bold tracking-wider text-[var(--cyan)]">
+                          {j.year}
+                        </span>
+                        <h4 className="mt-1 text-base font-bold">{j.title}</h4>
+                        <p className="mt-1 text-xs text-muted-foreground">{j.desc}</p>
+                      </div>
+                    </div>
+                    <div className="hidden md:block" />
+                    <div className="absolute left-1/2 top-8 hidden h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] glow md:block" />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -487,14 +594,47 @@ function Skills() {
 
 /* ───────────────────────── Projects ───────────────────────── */
 function Projects() {
+  const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
   return (
     <section id="projects" className="relative py-24 px-4">
       <div className="mx-auto max-w-6xl">
         <SectionTitle eyebrow="Selected work" title="Featured Projects" />
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 3) * 0.08}>
+        <Reveal className="mb-10 flex flex-wrap justify-center gap-2">
+          {(["All", ...projectCategories] as const).map((c) => {
+            const active = filter === c;
+            return (
+              <button
+                key={c}
+                onClick={() => setFilter(c)}
+                className={`relative rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                  active
+                    ? "text-background"
+                    : "border border-white/10 bg-white/[0.03] text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="filter-pill"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{c}</span>
+              </button>
+            );
+          })}
+        </Reveal>
+        <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p, i) => (
               <motion.article
+                key={p.title}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, delay: (i % 3) * 0.05 }}
                 whileHover={{ y: -6 }}
                 className="glass-strong group relative flex h-full flex-col overflow-hidden rounded-2xl"
               >
@@ -503,6 +643,9 @@ function Projects() {
                   <div className="absolute inset-0 grid place-items-center font-display text-5xl font-bold text-white/10">
                     {String(i + 1).padStart(2, "0")}
                   </div>
+                  <span className="absolute right-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-[var(--cyan)] backdrop-blur">
+                    {p.category}
+                  </span>
                   <div className="absolute bottom-3 left-4 right-4 flex flex-wrap gap-1.5">
                     {p.tech.slice(0, 3).map((t) => (
                       <span
@@ -529,14 +672,17 @@ function Projects() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-                    <div className="flex flex-wrap gap-1">
-                      {p.tech.map((t) => (
-                        <span key={t} className="text-[10px] text-muted-foreground">
-                          #{t.toLowerCase().replace(/\s|\./g, "")}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="mt-5 flex items-center justify-end gap-2 border-t border-white/10 pt-4">
+                    {p.demo && (
+                      <a
+                        href={p.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-[var(--cyan)] hover:text-background"
+                      >
+                        <FaExternalLinkAlt className="text-[10px]" /> Demo
+                      </a>
+                    )}
                     <a
                       href={p.github}
                       target="_blank"
@@ -548,9 +694,9 @@ function Projects() {
                   </div>
                 </div>
               </motion.article>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
@@ -879,13 +1025,80 @@ function ScrollTop() {
   );
 }
 
+/* ───────────────────────── Cursor glow ───────────────────────── */
+function CursorGlow() {
+  const x = useMotionValue(-200);
+  const y = useMotionValue(-200);
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [x, y]);
+  return (
+    <motion.div
+      style={{ x, y }}
+      className="pointer-events-none fixed left-0 top-0 z-[55] hidden h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full md:block"
+      aria-hidden
+    >
+      <div
+        className="h-full w-full rounded-full opacity-30"
+        style={{
+          background:
+            "radial-gradient(circle at center, var(--electric), transparent 60%)",
+          filter: "blur(60px)",
+        }}
+      />
+    </motion.div>
+  );
+}
+
+/* ───────────────────────── Loading screen ───────────────────────── */
+function LoadingScreen({ onDone }: { onDone: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 1400);
+    return () => clearTimeout(t);
+  }, [onDone]);
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 z-[100] grid place-items-center bg-background"
+    >
+      <div className="relative">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          className="absolute -inset-4 rounded-2xl border-2 border-transparent border-t-[var(--electric)] border-r-[var(--cyan)]"
+        />
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] font-display text-3xl font-bold text-background glow"
+        >
+          SK
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ───────────────────────── Page ───────────────────────── */
 function PortfolioPage() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <AnimatePresence>
+        {loading && <LoadingScreen onDone={() => setLoading(false)} />}
+      </AnimatePresence>
+      <CursorGlow />
       <motion.div
         style={{ scaleX }}
         className="fixed inset-x-0 top-0 z-[60] h-1 origin-left bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)]"
