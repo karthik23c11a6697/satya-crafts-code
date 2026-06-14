@@ -496,6 +496,39 @@ function About() {
             </div>
           </Reveal>
         </div>
+
+        {/* Learning journey timeline */}
+        <Reveal className="mt-16">
+          <h3 className="mb-8 text-center font-display text-2xl font-bold">
+            My <span className="text-gradient">Learning Journey</span>
+          </h3>
+          <div className="relative">
+            <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[var(--electric)]/40 to-transparent md:block" />
+            <div className="space-y-4 md:space-y-0">
+              {journey.map((j, i) => (
+                <Reveal key={j.title} delay={i * 0.08}>
+                  <div
+                    className={`relative md:grid md:grid-cols-2 md:gap-8 ${
+                      i % 2 === 0 ? "" : "md:[&>*:first-child]:order-2"
+                    }`}
+                  >
+                    <div className={`md:py-6 ${i % 2 === 0 ? "md:text-right" : ""}`}>
+                      <div className="glass rounded-2xl p-5 transition-transform hover:-translate-y-1">
+                        <span className="font-display text-xs font-bold tracking-wider text-[var(--cyan)]">
+                          {j.year}
+                        </span>
+                        <h4 className="mt-1 text-base font-bold">{j.title}</h4>
+                        <p className="mt-1 text-xs text-muted-foreground">{j.desc}</p>
+                      </div>
+                    </div>
+                    <div className="hidden md:block" />
+                    <div className="absolute left-1/2 top-8 hidden h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] glow md:block" />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
