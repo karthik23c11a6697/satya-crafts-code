@@ -594,14 +594,47 @@ function Skills() {
 
 /* ───────────────────────── Projects ───────────────────────── */
 function Projects() {
+  const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
   return (
     <section id="projects" className="relative py-24 px-4">
       <div className="mx-auto max-w-6xl">
         <SectionTitle eyebrow="Selected work" title="Featured Projects" />
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 3) * 0.08}>
+        <Reveal className="mb-10 flex flex-wrap justify-center gap-2">
+          {(["All", ...projectCategories] as const).map((c) => {
+            const active = filter === c;
+            return (
+              <button
+                key={c}
+                onClick={() => setFilter(c)}
+                className={`relative rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                  active
+                    ? "text-background"
+                    : "border border-white/10 bg-white/[0.03] text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="filter-pill"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--electric)] to-[var(--cyan)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{c}</span>
+              </button>
+            );
+          })}
+        </Reveal>
+        <motion.div layout className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p, i) => (
               <motion.article
+                key={p.title}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, delay: (i % 3) * 0.05 }}
                 whileHover={{ y: -6 }}
                 className="glass-strong group relative flex h-full flex-col overflow-hidden rounded-2xl"
               >
@@ -610,6 +643,9 @@ function Projects() {
                   <div className="absolute inset-0 grid place-items-center font-display text-5xl font-bold text-white/10">
                     {String(i + 1).padStart(2, "0")}
                   </div>
+                  <span className="absolute right-3 top-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-[var(--cyan)] backdrop-blur">
+                    {p.category}
+                  </span>
                   <div className="absolute bottom-3 left-4 right-4 flex flex-wrap gap-1.5">
                     {p.tech.slice(0, 3).map((t) => (
                       <span
@@ -636,14 +672,17 @@ function Projects() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-                    <div className="flex flex-wrap gap-1">
-                      {p.tech.map((t) => (
-                        <span key={t} className="text-[10px] text-muted-foreground">
-                          #{t.toLowerCase().replace(/\s|\./g, "")}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="mt-5 flex items-center justify-end gap-2 border-t border-white/10 pt-4">
+                    {p.demo && (
+                      <a
+                        href={p.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-[var(--cyan)] hover:text-background"
+                      >
+                        <FaExternalLinkAlt className="text-[10px]" /> Demo
+                      </a>
+                    )}
                     <a
                       href={p.github}
                       target="_blank"
@@ -655,9 +694,9 @@ function Projects() {
                   </div>
                 </div>
               </motion.article>
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
