@@ -36,6 +36,10 @@ import {
   projects,
   education,
   navLinks,
+  typewriterRoles,
+  journey,
+  projectCategories,
+  type ProjectCategory,
 } from "@/data/portfolio";
 
 export const Route = createFileRoute("/")({
