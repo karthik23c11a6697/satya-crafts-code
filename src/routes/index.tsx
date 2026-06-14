@@ -276,6 +276,38 @@ const techIcons = [
   { Icon: FaBrain, name: "ML", color: "#22d3ee" },
 ];
 
+/* ───────────────────────── Typewriter ───────────────────────── */
+function Typewriter({ words }: { words: string[] }) {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  useEffect(() => {
+    const current = words[wordIdx];
+    const speed = deleting ? 45 : 95;
+    const t = setTimeout(() => {
+      if (!deleting) {
+        const next = current.slice(0, text.length + 1);
+        setText(next);
+        if (next === current) setTimeout(() => setDeleting(true), 1400);
+      } else {
+        const next = current.slice(0, text.length - 1);
+        setText(next);
+        if (next === "") {
+          setDeleting(false);
+          setWordIdx((i) => (i + 1) % words.length);
+        }
+      }
+    }, speed);
+    return () => clearTimeout(t);
+  }, [text, deleting, wordIdx, words]);
+  return (
+    <span className="text-gradient">
+      {text}
+      <span className="ml-0.5 inline-block h-[1em] w-[2px] -translate-y-[2px] bg-[var(--cyan)] align-middle animate-pulse" />
+    </span>
+  );
+}
+
 function Hero() {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-32 pb-20">
@@ -294,14 +326,14 @@ function Hero() {
             </span>
             Available for internships & full-time roles
           </motion.div>
-          <h1 className="text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
             Hi, I'm <br />
             <span className="text-gradient">Satya Karthik</span>
           </h1>
-          <p className="mt-5 text-base text-muted-foreground sm:text-lg">
-            Software Engineer · Data Analyst · AI Enthusiast
-          </p>
-          <p className="mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
+          <div className="mt-5 min-h-[2em] text-lg font-medium sm:text-xl md:text-2xl">
+            I'm a <Typewriter words={typewriterRoles} />
+          </div>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             I build intelligent solutions using data, machine learning, and modern software
             technologies. Passionate about solving real-world problems through code and continuous
             learning.
@@ -326,41 +358,79 @@ function Hero() {
               <FaEnvelope /> Contact
             </a>
           </div>
+          <div className="mt-6 flex gap-3">
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="GitHub"
+            >
+              <FaGithub />
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="glass grid h-10 w-10 place-items-center rounded-xl text-[var(--cyan)] transition-transform hover:scale-110 hover:text-foreground"
+              aria-label="Email"
+            >
+              <FaEnvelope />
+            </a>
+          </div>
         </Reveal>
 
         <Reveal delay={0.2} className="relative">
           <div className="relative mx-auto aspect-square max-w-md">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--electric)]/30 to-[var(--cyan)]/20 blur-3xl" />
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-6 rounded-full border border-dashed border-white/15"
+              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "conic-gradient(from 0deg, var(--electric), var(--cyan), var(--electric), transparent 70%, var(--electric))",
+                filter: "blur(2px)",
+                padding: "2px",
+                WebkitMask:
+                  "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+                mask:
+                  "radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px))",
+              }}
             />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--electric)]/40 to-[var(--cyan)]/30 blur-3xl" />
             <motion.div
               animate={{ rotate: -360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-16 rounded-full border border-dashed border-white/10"
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-8 rounded-full border border-dashed border-white/15"
             />
-            <div className="absolute inset-1/4 grid place-items-center rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] p-1">
-              <div className="grid h-full w-full place-items-center rounded-full bg-background font-display text-5xl font-bold text-gradient">
+            <div className="absolute inset-[18%] grid place-items-center rounded-full bg-gradient-to-br from-[var(--electric)] to-[var(--cyan)] p-[3px] glow">
+              <div className="grid h-full w-full place-items-center rounded-full bg-background font-display text-6xl font-bold text-gradient">
                 SK
               </div>
             </div>
             {techIcons.map((t, i) => {
-              const angle = (i / techIcons.length) * Math.PI * 2;
-              const r = 46;
+              const angle = (i / techIcons.length) * Math.PI * 2 - Math.PI / 2;
+              const r = 48;
               const x = Math.cos(angle) * r;
               const y = Math.sin(angle) * r;
               return (
                 <motion.div
                   key={t.name}
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+                  animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
                   transition={{
                     opacity: { delay: 0.6 + i * 0.1 },
                     scale: { delay: 0.6 + i * 0.1, type: "spring" },
                     y: { duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" },
                   }}
+                  whileHover={{ scale: 1.15 }}
                   className="glass-strong absolute grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl text-2xl"
                   style={{
                     left: `${50 + x}%`,
