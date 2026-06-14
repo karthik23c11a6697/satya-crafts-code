@@ -10,6 +10,13 @@ export const profile = {
   githubUsername: "karthik23c11a6697",
 };
 
+export const typewriterRoles = [
+  "Software Engineer",
+  "Data Analyst",
+  "AI Enthusiast",
+  "Full-Stack Developer",
+];
+
 export const highlights = [
   "Problem Solver",
   "Fast Learner",
@@ -23,6 +30,34 @@ export const stats = [
   { label: "GitHub Repositories", value: 20 },
   { label: "Technologies Learned", value: 25 },
   { label: "ML Projects", value: 6 },
+];
+
+export const journey = [
+  {
+    year: "2023",
+    title: "Started B.Tech Journey",
+    desc: "Began Computer Science at Lovely Professional University, diving into core CS fundamentals.",
+  },
+  {
+    year: "2024",
+    title: "Discovered Data Science",
+    desc: "Picked up Python, Pandas and NumPy. Built first EDA and visualization projects.",
+  },
+  {
+    year: "2024",
+    title: "Web Development",
+    desc: "Learned React, Tailwind, Node.js and started building full-stack apps.",
+  },
+  {
+    year: "2025",
+    title: "Machine Learning Projects",
+    desc: "Built regression, clustering and NLP projects with Scikit-learn.",
+  },
+  {
+    year: "2025",
+    title: "Internships & Open Source",
+    desc: "Contributing to real-world projects and shipping production-quality code.",
+  },
 ];
 
 export const skills = [
@@ -61,7 +96,23 @@ export const skills = [
   },
 ];
 
-export const projects = [
+export type ProjectCategory = "Data Analysis" | "Machine Learning" | "Automation";
+
+export const projectCategories: ProjectCategory[] = [
+  "Data Analysis",
+  "Machine Learning",
+  "Automation",
+];
+
+export const projects: {
+  title: string;
+  description: string;
+  tech: string[];
+  features: string[];
+  github: string;
+  demo?: string;
+  category: ProjectCategory;
+}[] = [
   {
     title: "Automated Data Cleaning & Reporting",
     description:
@@ -75,6 +126,7 @@ export const projects = [
     ],
     github:
       "https://github.com/karthik23c11a6697/data-cleaning-reporting-automation",
+    category: "Automation",
   },
   {
     title: "House Price Prediction",
@@ -89,6 +141,7 @@ export const projects = [
     ],
     github:
       "https://github.com/karthik23c11a6697/Thiranex_Task3_House_Price_Prediction",
+    category: "Machine Learning",
   },
   {
     title: "Sentiment Analysis",
@@ -103,6 +156,7 @@ export const projects = [
     ],
     github:
       "https://github.com/karthik23c11a6697/HorizonTechX_Sentiment_Analysis",
+    category: "Machine Learning",
   },
   {
     title: "Customer Segmentation",
@@ -116,6 +170,7 @@ export const projects = [
       "Business insights",
     ],
     github: "https://github.com/karthik23c11a6697/Customer-Segmentation",
+    category: "Machine Learning",
   },
   {
     title: "Sales Revenue Analysis",
@@ -129,6 +184,7 @@ export const projects = [
       "Visual reporting",
     ],
     github: "https://github.com/karthik23c11a6697/Sales-Revenue-Analysis",
+    category: "Data Analysis",
   },
   {
     title: "Exploratory Data Analysis",
@@ -142,6 +198,7 @@ export const projects = [
       "Insight generation",
     ],
     github: "https://github.com/karthik23c11a6697/HorizonTechX_EDA",
+    category: "Data Analysis",
   },
 ];
 
