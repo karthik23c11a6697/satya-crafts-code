@@ -85,6 +85,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@satyakarthik" },
+      { name: "twitter:title", content: "Satya Karthik — Portfolio" },
+      { name: "twitter:description", content: "Portfolio of Satya Karthik — Aspiring Machine Learning Engineer, Python Developer & Data Analyst." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/7793d585-39e0-49df-9281-7e7fef335b96" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/7793d585-39e0-49df-9281-7e7fef335b96" },
     ],
     links: [
       {
